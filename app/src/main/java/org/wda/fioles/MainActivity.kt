@@ -3,10 +3,13 @@ package org.wda.fioles
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
@@ -16,7 +19,12 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.webkit.WebViewAssetLoader
+import java.io.ByteArrayInputStream
 
+// Fioles d'Ambre
+// La page est lue dans les assets. Aucun fichier distant au démarrage.
+// Verification de sécurité coupée : Sinon Android attend le réseau avant d'afficher.
+// Dessin logiciel : Le OnePlus 13 laisse la WebView noire avec l'accélération matérielle.
 class MainActivity : ComponentActivity() {
     private var webView: WebView? = null
     private var insetTop = 0
@@ -41,6 +49,16 @@ class MainActivity : ComponentActivity() {
         web.settings.mediaPlaybackRequiresUserGesture = false
         web.settings.useWideViewPort = true
         web.settings.loadWithOverviewMode = true
+        web.settings.allowFileAccess = false
+        web.settings.allowContentAccess = false
+        web.settings.safeBrowsingEnabled = false
+        if (android.os.Build.VERSION.SDK_INT >= 33) {
+            web.settings.isAlgorithmicDarkeningAllowed = false
+        } else if (android.os.Build.VERSION.SDK_INT >= 29) {
+            @Suppress("DEPRECATION")
+            web.settings.forceDark = WebSettings.FORCE_DARK_OFF
+        }
+        web.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         web.webViewClient = object : WebViewClient() {
             override fun shouldInterceptRequest(
                 view: WebView,
@@ -48,6 +66,12 @@ class MainActivity : ComponentActivity() {
             ): WebResourceResponse? {
                 val url = request.url.toString()
                 val found = loader.shouldInterceptRequest(request.url) ?: return null
+                return withMime(found, url)
+            }
+
+            @Deprecated("Ancienne WebView")
+            override fun shouldInterceptRequest(view: WebView, url: String): WebResourceResponse? {
+                val found = loader.shouldInterceptRequest(Uri.parse(url)) ?: return null
                 return withMime(found, url)
             }
 
@@ -123,17 +147,20 @@ class MainActivity : ComponentActivity() {
     private fun withMime(found: WebResourceResponse, url: String): WebResourceResponse {
         val headers = HashMap(found.responseHeaders ?: emptyMap())
         headers["Access-Control-Allow-Origin"] = "*"
+        val path = url.substringBefore('?').substringBefore('#')
         val mime = when {
-            url.endsWith(".js") -> "text/javascript"
-            url.endsWith(".css") -> "text/css"
-            url.endsWith(".svg") -> "image/svg+xml"
-            url.endsWith(".webp") -> "image/webp"
-            url.endsWith(".png") -> "image/png"
-            url.endsWith(".html") -> "text/html"
+            path.endsWith(".js") -> "text/javascript"
+            path.endsWith(".css") -> "text/css"
+            path.endsWith(".svg") -> "image/svg+xml"
+            path.endsWith(".webp") -> "image/webp"
+            path.endsWith(".png") -> "image/png"
+            path.endsWith(".html") -> "text/html"
+            path.endsWith(".woff2") -> "font/woff2"
             else -> found.mimeType ?: "application/octet-stream"
         }
         val encoding = if (mime.startsWith("text/") || mime.startsWith("image/svg")) "utf-8" else null
-        return WebResourceResponse(mime, encoding, 200, "OK", headers, found.data)
+        val bytes = found.data?.use { it.readBytes() } ?: ByteArray(0)
+        return WebResourceResponse(mime, encoding, 200, "OK", headers, ByteArrayInputStream(bytes))
     }
 
     override fun onDestroy() {

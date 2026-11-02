@@ -15,6 +15,7 @@
  * - `manifest.webmanifest` : La fiche d'installation du jeu
  * - `llms.txt` : La carte du jeu pour une IA. Celle du site entier reste à la racine de charreyre.net. On ne la remplace pas. On y ajoute un lien.
  * - `CSS/fioles.css` : L'apparence des boutons
+ * - `fonts/Fraunces.woff2` et `fonts/Outfit.woff2` : Les deux polices, dans le jeu. On n'appelle plus fonts.googleapis.com. La page web et l'application Android ne chargent aucun fichier distant pour démarrer. Les liens de don et de crédit ne partent que si on les touche, et ils s'ouvrent dans le navigateur.
  * - `JS/regle.js` : La règle, les niveaux, l'indice
  * - `JS/dessin.js` : Les fioles et la mélasse
  * - `JS/son.js` : Les sons, et la nappe de laboratoire de l'accueil. Tout est synthétisé. Pas de fichier audio. Un navigateur peut la bloquer tant qu'on n'a pas touché la page. Le premier toucher la lance, il ne coupe pas le son. Ensuite le bouton la coupe. La nappe s'arrête dès que la partie commence.

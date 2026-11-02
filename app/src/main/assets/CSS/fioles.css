@@ -2,9 +2,25 @@
  * Apparence : Fioles d'Ambre
  * Les boutons, les textes, les fenetres. Pas les fioles : Elles sont dessinees dans JS/dessin.js.
  * Les couleurs nommees sont en tete, dans :root.
+ * Les polices sont dans fonts/, a cote de index.html. Deux fichiers : Fraunces.woff2 et Outfit.woff2.
+ * On ne charge plus rien chez Google. Ni la page web, ni l'application Android.
  * ©2026, Mathieu CHARREYRE pour WDA & Ambre.
  * Avant une modification : Lire JS/doctrine.js
  */
+
+@font-face {
+  font-family: Fraunces;
+  src: url("../fonts/Fraunces.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Outfit;
+  src: url("../fonts/Outfit.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
 
 :root {
   --font-display: "Fraunces", Georgia, serif;
