@@ -1,0 +1,32 @@
+# Fioles d'Ambre
+# _Off-Line part sur GitHub. Le reste, non.
+
+# Cette machine
+local.properties
+*.iml
+.DS_Store
+
+# Compilation
+.gradle/
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Signature : jamais
+*.jks
+*.keystore
+keystore.properties
+
+# Paquets générés (ceux copiés dans _Off-Line partent quand même)
+*.apk
+*.aab
+
+# Android Studio, réglages de cette machine
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/shelf/

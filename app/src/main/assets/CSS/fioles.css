@@ -1,0 +1,431 @@
+/*
+ * Apparence : Fioles d'Ambre
+ * Les boutons, les textes, les fenetres. Pas les fioles : Elles sont dessinees dans JS/dessin.js.
+ * Les couleurs nommees sont en tete, dans :root.
+ * ©2026, Mathieu CHARREYRE pour WDA & Ambre.
+ * Avant une modification : Lire JS/doctrine.js
+ */
+
+:root {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #161018;
+  --color-ink-2: #261820;
+  --color-lamp: #e7a24a;
+  --color-lamp-deep: #a86b22;
+  --color-parchment: #f6ecdf;
+  --color-muted: #cbbbaa;
+  --color-line: #3d2c36;
+}
+
+button:not(:disabled),
+[role="button"]:not(:disabled) {
+  cursor: pointer;
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--color-ink);
+  color: var(--color-parchment);
+  font-family: var(--font-sans);
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+a {
+  color: var(--color-lamp);
+}
+
+.stage {
+  position: relative;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-ink);
+  color: var(--color-parchment);
+}
+
+.stage.title {
+  /* Pas d'etirement : cover recadre, le centre sombre reste derriere le texte. */
+  background-color: var(--color-ink);
+  background-image: linear-gradient(180deg, rgba(12, 8, 14, 0.28), rgba(12, 8, 14, 0.42)), url("../Picts/accueil.webp");
+  background-position: center, center 70%;
+  background-size: cover, cover;
+  background-repeat: no-repeat;
+}
+
+.stage.title .title-mute {
+  position: absolute;
+  top: calc(0.7rem + env(safe-area-inset-top));
+  right: 0.7rem;
+  z-index: 2;
+}
+
+.stage.title .title-card {
+  background: rgba(12, 8, 14, 0.62);
+  border: 1px solid rgba(246, 236, 223, 0.12);
+  border-radius: 1.2rem;
+  padding: 1.3rem 1.15rem 1.15rem;
+}
+
+.title-card {
+  margin: auto;
+  width: min(28rem, calc(100% - 2rem));
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 719px) {
+  .stage.title {
+    background-position: center, center bottom;
+  }
+
+  .title-card {
+    margin: calc(0.85rem + env(safe-area-inset-top)) auto auto;
+  }
+}
+
+.eyebrow {
+  margin: 0;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: var(--color-lamp);
+}
+
+.title-card h1,
+.topbar h1,
+.card h2 {
+  font-family: var(--font-display);
+  font-weight: 560;
+  margin: 0;
+}
+
+.title-card h1 {
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--color-parchment);
+}
+
+.rule,
+.card p,
+.band,
+.note {
+  color: var(--color-muted);
+  line-height: 1.5;
+}
+
+.rule {
+  margin: 0;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.9rem 1rem 0.2rem;
+}
+
+.top-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+  flex: none;
+}
+
+@media (max-width: 520px) {
+  .top-actions .btn {
+    font-size: 0.82rem;
+    padding-left: 0.55rem;
+    padding-right: 0.55rem;
+  }
+}
+
+.topbar h1 {
+  font-size: 1.7rem;
+  line-height: 1.1;
+}
+
+.topbar h1 span {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: 0.5rem;
+  }
+
+  .topbar > div:first-child {
+    display: contents;
+  }
+
+  .topbar .mark {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+  }
+
+  .topbar .top-actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .topbar h1 {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: 1.45rem;
+  }
+
+  .topbar .band {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+}
+
+.mark {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-lamp);
+}
+
+.version {
+  letter-spacing: 0.12em;
+  text-transform: none;
+  font-size: 0.72rem;
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+.title-card .version {
+  margin: -0.35rem 0 0;
+}
+
+.band,
+.note {
+  margin: 0.15rem 0 0;
+  font-size: 0.9rem;
+}
+
+.note {
+  padding: 0 1rem 0.35rem;
+  min-height: 1.4rem;
+}
+
+.note.quiet {
+  opacity: 0.8;
+}
+
+.play-canvas {
+  flex: 1;
+  min-height: 0;
+}
+
+.play-canvas canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+.dock {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  padding: 0.6rem 0.8rem calc(0.7rem + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 720px) {
+  .dock {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-height: 520px) {
+  .topbar {
+    padding: 0.2rem 0.7rem 0;
+  }
+
+  .topbar h1 {
+    font-size: 1.15rem;
+  }
+
+  .band {
+    display: none;
+  }
+
+  .note {
+    min-height: 0;
+    padding-top: 0;
+    padding-bottom: 0.1rem;
+    font-size: 0.75rem;
+  }
+
+  .dock {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.35rem;
+    padding: 0.3rem 0.45rem calc(0.3rem + env(safe-area-inset-bottom));
+  }
+
+  .btn,
+  .icon-btn {
+    min-height: 2.35rem;
+    font-size: 0.78rem;
+    padding: 0.2rem 0.35rem;
+    gap: 0.25rem;
+  }
+
+  .icon-btn {
+    width: 2.35rem;
+  }
+  .btn img,
+  .icon-btn img {
+    width: 0.95rem;
+    height: 0.95rem;
+  }
+
+  .title-card {
+    gap: 0.4rem;
+  }
+
+  .title-card h1 {
+    font-size: 2rem;
+  }
+
+  .rule {
+    font-size: 0.85rem;
+  }
+}
+
+.btn,
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 3rem;
+  border-radius: 0.85rem;
+  border: 1px solid var(--color-line);
+  background: var(--color-ink-2);
+  color: var(--color-parchment);
+  font: 600 0.95rem/1 var(--font-sans);
+  padding: 0.4rem 0.8rem;
+  white-space: nowrap;
+}
+
+.btn svg,
+.icon-btn svg,
+.btn img,
+.icon-btn img {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: none;
+  display: block;
+}
+
+@media (max-width: 390px) {
+  .dock .btn {
+    font-size: 0.82rem;
+    padding: 0.35rem 0.35rem;
+    gap: 0.28rem;
+  }
+}
+
+.btn:disabled {
+  opacity: 0.4;
+}
+
+.btn.primary {
+  background: var(--color-lamp);
+  color: #2a1604;
+  border-color: transparent;
+}
+
+.btn.ghost {
+  background: transparent;
+}
+
+.icon-btn {
+  width: 3rem;
+  padding: 0;
+  flex: none;
+}
+
+.veil {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 8, 12, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.card {
+  width: min(26rem, 100%);
+  max-height: calc(100dvh - 2rem);
+  overflow: auto;
+  background: var(--color-ink-2);
+  color: var(--color-parchment);
+  border: 1px solid var(--color-line);
+  border-radius: 1.1rem;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.card h2 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.card p {
+  margin: 0;
+  text-align: center;
+}
+
+.credits strong {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 680;
+  color: var(--color-lamp);
+  line-height: 1;
+}
+
+.licence {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-lamp);
+  outline-offset: 2px;
+}
