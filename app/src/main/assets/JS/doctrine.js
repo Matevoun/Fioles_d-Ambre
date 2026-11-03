@@ -45,6 +45,7 @@
  * - HelloAsso : https://www.helloasso.com/associations/association-wda/formulaires/1
  * - PayPal : https://www.paypal.com/donate/?hosted_button_id=DZRY58WUANTAJ
  * - Licence : CC BY-NC-SA 4.0. C'est le nom court de : citer les crédits, pas de commercialisation, partage à l'identique. À l'écran, une seule ligne, sous la phrase sur Ambre.
+ * - Dans À propos, sous la licence, deux liens au même format que HelloAsso et PayPal : Version web (https://mathieu.charreyre.net/Fioles) et Confidentialité (https://wda-fr.org/index.php?page=Apps/fioles-d-ambre). Pas sur l'accueil. L'accueil garde les fioles cassées. Chaque lien d'À propos a une bulle, comme les boutons : title et aria-label. Un lien n'a pas d'attribut alt.
  *
  * Le texte "À propos" reprend ces crédits. Le mot "bénévolement" reste plus grand que le corps, comme sur PixelGod.
  *

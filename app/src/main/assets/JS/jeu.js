@@ -747,11 +747,12 @@ function paintChrome() {
       `<div class="veil" role="dialog">
         <div class="card">
           <h2>${textes.aProposTitre}</h2>
-          <p class="credits">${textes.developpe} <strong>${textes.benevollement}</strong> ${textes.par} <a href="${textes.urlAuteur}" target="_blank" rel="noreferrer">${textes.auteur}</a> ${textes.pourAsso}<a href="${textes.urlAsso}" target="_blank" rel="noreferrer">${textes.asso}</a>.</p>
+          <p class="credits">${textes.developpe} <strong>${textes.benevollement}</strong> ${textes.par} <a href="${textes.urlAuteur}" target="_blank" rel="noreferrer" ${bulle("aideAuteur")}>${textes.auteur}</a> ${textes.pourAsso}<a href="${textes.urlAsso}" target="_blank" rel="noreferrer" ${bulle("aideAsso")}>${textes.asso}</a>.</p>
           <p>${textes.prenom}</p>
           <p class="licence">${textes.licence}</p>
+          <p class="links"><a href="${textes.urlWeb}" target="_blank" rel="noreferrer" ${bulle("aideWeb")}>${textes.versionWeb}</a><a href="${textes.urlConfidentialite}" target="_blank" rel="noreferrer" ${bulle("aideConfidentialite")}>${textes.confidentialite}</a></p>
           <p>${textes.don}</p>
-          <p class="links"><a href="${textes.urlHello}" target="_blank" rel="noreferrer">${textes.hello}</a><a href="${textes.urlPaypal}" target="_blank" rel="noreferrer">${textes.paypal}</a></p>
+          <p class="links"><a href="${textes.urlHello}" target="_blank" rel="noreferrer" ${bulle("aideHello")}>${textes.hello}</a><a href="${textes.urlPaypal}" target="_blank" rel="noreferrer" ${bulle("aidePaypal")}>${textes.paypal}</a></p>
           ${
             model.mode === "berzerk"
               ? `<button type="button" class="btn" data-act="leave" ${bulle("aideRetour")}>${textes.retourCampagne}</button>`

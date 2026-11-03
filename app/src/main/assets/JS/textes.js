@@ -45,7 +45,9 @@ const textes = {
   asso: "Association WDA",
   prenom: "Le pr\xE9nom du jeu est celui du Cafard Ambre ;-).",
   licence: "Licence CC BY-NC-SA 4.0.",
-  don: "Si ce jeu vous amuse, un don \xE0 l'association suffit.<br>Rien n'est obligatoire.",
+  versionWeb: "Version web",
+  confidentialite: "Confidentialité",
+  don: "Si ce jeu vous amuse, un don \xE0 l'association suffit. Rien n'est obligatoire.",
   hello: "HelloAsso",
   paypal: "PayPal",
   effaceAvertissement: "Cela efface le niveau en cours et ceux d\xE9j\xE0 d\xE9bloqu\xE9s.",
@@ -61,6 +63,8 @@ const textes = {
   voile: "couches voil\xE9es",
   urlAuteur: "https://mathieu.charreyre.net",
   urlAsso: "https://wda-fr.org",
+  urlWeb: "https://mathieu.charreyre.net/Fioles",
+  urlConfidentialite: "https://wda-fr.org/index.php?page=Apps/fioles-d-ambre",
   urlHello: "https://www.helloasso.com/associations/association-wda/formulaires/1",
   urlPaypal: "https://www.paypal.com/donate/?hosted_button_id=DZRY58WUANTAJ",
   // Bulles au survol. Ce ne sont pas les textes des boutons.
@@ -78,7 +82,13 @@ const textes = {
   aideRetour: "Revenir à la campagne laissée en cours.",
   aideEffacer: "Effacer la partie et les niveaux débloqués.",
   aideOui: "Confirmer l'effacement.",
-  aideFermer: "Fermer cette fenêtre."
+  aideFermer: "Fermer cette fenêtre.",
+  aideAuteur: "Ouvrir le site de Mathieu CHARREYRE.",
+  aideAsso: "Ouvrir le site de l'Association WDA.",
+  aideWeb: "Jouer à la même version dans le navigateur.",
+  aideConfidentialite: "Lire les règles de confidentialité de l'application.",
+  aideHello: "Faire un don à l'association sur HelloAsso.",
+  aidePaypal: "Faire un don à l'association sur PayPal."
 };
 
 // Colle un nombre devant un mot du bloc ci-dessus.
