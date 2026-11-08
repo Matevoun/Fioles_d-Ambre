@@ -135,9 +135,11 @@
  *
  * La version jouable est le client web, au doigt, téléphone compris. Un port Godot recopiera cette règle, cette courbe et ces crédits. Il ne les réinvente pas.
  *
+ * La 0.21 aligne le numéro du site sur l'application. Le correctif ne concerne que le lancement Android. La partie dans le navigateur ne change pas. Le numéro affiché vient de GAME_VERSION, en bas de ce fichier.
+ *
  * ## Commentaires
  *
  * Les commentaires de code restent sans accents. Le texte que lit le joueur est en Français accentué.
  */
 export const DOCTRINE_VERSION = 1;
-export const GAME_VERSION = "0.20";
+export const GAME_VERSION = "0.21";

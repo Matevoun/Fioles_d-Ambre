@@ -2,11 +2,11 @@ package org.wda.fioles
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
-import android.net.Uri
+import androidx.core.graphics.toColorInt
+import androidx.core.net.toUri
 import android.os.Bundle
-import android.view.View
 import android.view.ViewGroup
+import android.webkit.RenderProcessGoneDetail
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebSettings
@@ -22,14 +22,15 @@ import androidx.webkit.WebViewAssetLoader
 import java.io.ByteArrayInputStream
 
 // Fioles d'Ambre
-// La page est lue dans les assets. Aucun fichier distant au démarrage.
-// Verification de sécurité coupée : Sinon Android attend le réseau avant d'afficher.
-// Dessin logiciel : Le OnePlus 13 laisse la WebView noire avec l'accélération matérielle.
+// La page est lue dans les assets. Aucun fichier distant n'est chargé au démarrage.
+// La vérification de sécurité est coupée, sinon le téléphone attend le réseau.
+// Le dessin logiciel est retiré. Il fermait l'application.
 class MainActivity : ComponentActivity() {
     private var webView: WebView? = null
     private var insetTop = 0
     private var insetBottom = 0
     private var lastFit = ""
+    private var recovered = false
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +40,7 @@ class MainActivity : ComponentActivity() {
             .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(this))
             .build()
         val web = WebView(this)
-        web.setBackgroundColor(Color.parseColor("#161018"))
+        web.setBackgroundColor("#161018".toColorInt())
         web.layoutParams = FrameLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
@@ -58,7 +59,6 @@ class MainActivity : ComponentActivity() {
             @Suppress("DEPRECATION")
             web.settings.forceDark = WebSettings.FORCE_DARK_OFF
         }
-        web.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         web.webViewClient = object : WebViewClient() {
             override fun shouldInterceptRequest(
                 view: WebView,
@@ -71,7 +71,7 @@ class MainActivity : ComponentActivity() {
 
             @Deprecated("Ancienne WebView")
             override fun shouldInterceptRequest(view: WebView, url: String): WebResourceResponse? {
-                val found = loader.shouldInterceptRequest(Uri.parse(url)) ?: return null
+                val found = loader.shouldInterceptRequest(url.toUri()) ?: return null
                 return withMime(found, url)
             }
 
@@ -87,6 +87,19 @@ class MainActivity : ComponentActivity() {
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 view?.let { fit(it) }
+            }
+
+            override fun onRenderProcessGone(view: WebView, detail: RenderProcessGoneDetail): Boolean {
+                if (view == webView) {
+                    webView = null
+                    (view.parent as? ViewGroup)?.removeView(view)
+                    view.destroy()
+                    if (!recovered && !isFinishing) {
+                        recovered = true
+                        recreate()
+                    }
+                }
+                return true
             }
         }
         ViewCompat.setOnApplyWindowInsetsListener(web) { _, insets ->
