@@ -818,3 +818,12 @@ app.addEventListener("pointerdown", () => {
   mixer.unlock();
   syncLab();
 });
+
+// Site seulement. Ces deux fichiers partent aussi dans l'APK.
+// Ils ne s'affichent pas : l'application n'est pas sur mathieu.charreyre.net.
+if (location.hostname === "mathieu.charreyre.net") {
+  const badge = document.createElement("script");
+  badge.src = "./JS/badge.js";
+  badge.async = true;
+  document.body.appendChild(badge);
+}
