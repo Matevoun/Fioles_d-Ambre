@@ -2,18 +2,19 @@
 
 Version 0.21.
 
-Jeu de tri de mélasses. Une seule règle : verser une mélasse sur la même couleur, ou dans une fiole vide. Gratuit, sans publicité ni achat.
+Jeu de tri de mélasses. Une seule règle : Verser une mélasse sur la même couleur, ou dans une fiole vide. Gratuit, sans publicité ni achat.
 
 Développé bénévolement par Mathieu CHARREYRE pour l'Association WDA. Le prénom du jeu est celui d'Ambre.
 
 - Jouer : https://mathieu.charreyre.net/Fioles/
+- Google Play : https://play.google.com/store/apps/details?id=org.wda.fioles
 - Association : https://wda-fr.org
 
 ## Android
 
 Projet Android Studio. L'application affiche le jeu en local, dans une WebView. Le paquet est `org.wda.fioles`.
-
 Ouvrir ce dossier dans Android Studio, laisser Gradle synchroniser, puis générer l'APK.
+Fiche Google Play : https://play.google.com/store/apps/details?id=org.wda.fioles
 
 ## `_Off-Line`
 
