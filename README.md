@@ -1,6 +1,6 @@
 # Fioles d'Ambre
 
-Version 0.20.
+Version 0.21.
 
 Jeu de tri de mélasses. Une seule règle : verser une mélasse sur la même couleur, ou dans une fiole vide. Gratuit, sans publicité ni achat.
 
